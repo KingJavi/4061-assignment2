@@ -11,15 +11,17 @@
 static int mapperFileIndex;  //this will keep track of which mapperFile we are putting
                              //txt files into
 
-void traverseDir(char *path, int numMappers, FILE *fp[]);
+void traverseDir(char *path, int numMappers, FILE *fp[])
 {
 
   struct dirent *de;      //create dirent struct of our parent directory
-  int i = 0;              //counter that keeps track of which mapper.txt file
-                            //we want to write to
 
-  DIR *dr = opendir(path);    //open the directory
+  DIR *dr = opendir(path);    //open the directory, in our case, testcase1
 
+  char dirbuff[PATH_MAX];
+  printf("\n%s\nWHATWHAT\n", getcwd(dirbuff, PATH_MAX));
+
+  /*
   if (dr == NULL)         //if we couldnt open it throw error
   {
     printf("\nCould not open given directory.\n");
@@ -58,6 +60,8 @@ void traverseDir(char *path, int numMappers, FILE *fp[]);
   }
 
   closedir(dr);
+  */
+  return ;
 }
 
 
@@ -73,13 +77,13 @@ void phase1(char *folder, int numMappers) // probably change var name
 
   for(i = 0; i < numMappers; i++)
   {
-      sprintf(buffer,"Mapper_%d", i);
-      mapperFiles[i] = buffer; //storing text file names
+      sprintf(buffer[i],"Mapper_%d", i);
+      mapperFiles[i] = buffer[i]; //storing text file names
       fp[i] = fopen(mapperFiles[i], "w"); //creating text files
   }
   chdir("..");//brings us back, might not need
 
-  traverseDir(folder, numMappers, fp);
+  traverseDir(folder, numMappers, fp); //puts paths into txt files
 
   return ;
 }
