@@ -8,6 +8,8 @@
 
 */
 
+//atom://teletype/portal/74ede11a-d4ea-4e84-9911-5debd59645b8
+
 /* USE TO TEST
 ./mapreduce ../Testcases/TestCase2 6
 */
@@ -88,7 +90,7 @@ void phase1(char *pathName, int numMappers) // probably change var name
   {
     printf("\nCould not open given directory.\n");
   }
-  
+
   traverseDir(pathName, numMappers, fp, path); //puts paths into txt files
   closedir(path);
 
