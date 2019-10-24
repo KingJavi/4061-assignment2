@@ -14,53 +14,51 @@ static int mapperFileIndex;  //this will keep track of which mapperFile we are p
 void traverseDir(char *path, int numMappers, FILE *fp[])
 {
 
-  struct dirent *de;      //create dirent struct of our parent directory
+  struct dirent *de; //create dirent struct of our parent directory
 
-  DIR *dr = opendir(path);    //open the directory, in our case, testcase1
-
-  char dirbuff[PATH_MAX];
-  printf("\n%s\nWHATWHAT\n", getcwd(dirbuff, PATH_MAX));
-
-  /*
+  DIR *dr = opendir(path); //pointer to directory, in our case it is a test case
   if (dr == NULL)         //if we couldnt open it throw error
   {
     printf("\nCould not open given directory.\n");
   }
 
+  //shouldnt need, tells us where we at
+  /*
+  char dirbuff[PATH_MAX];
+  printf("\n%s\nWHATWHAT\n", getcwd(dirbuff, PATH_MAX));
+  */
+
   while ((de = readdir(dr)) != NULL)    //while there are still more files to traverse
   {
     if (de->d_type == DT_DIR)     //if current file is a directory, call recursively
-  {
-
-  char newpath[PATH_MAX];   //create string to put new path name
-  snprintf(newpath, sizeof(newpath), "%s/%s", path, de->d_name);  //copy new path over
-  traverseDir(newpath, mapperFiles, fp, m);      //recursive call
-
-  }
-
-  else    //current directory is not a folder (ie it is a .txt file) ************
-  {
-
+    {
     char newpath[PATH_MAX];   //create string to put new path name
     snprintf(newpath, sizeof(newpath), "%s/%s", path, de->d_name);  //copy new path over
+    traverseDir(newpath, mapperFiles, fp, m);      //recursive call
+    } //if
+    else    //current directory is not a folder (ie it is a .txt file) ************
+    {
 
-    char txtFileName[] = "";            //string that wil hold current txt file name
-  	strcpy(txtFileName, de->d_name);    //copy that name to the string
+      char newpath[PATH_MAX];   //create string to put new path name
+      snprintf(newpath, sizeof(newpath), "%s/%s", path, de->d_name);  //copy new path over
 
-  	strcat(newpath, "/");               //add a slash to the end of filepath
-  	strcat(newpath, txtFileName);       //add the filename to end of filepath
+      char txtFileName[] = "";            //string that wil hold current txt file name
+      strcpy(txtFileName, de->d_name);    //copy that name to the string
 
-    fprintf(fp, newpath);     //print the filepath of the txt file to the Mapper file
-    fprintf(fp, "\n");
+      strcat(newpath, "/");               //add a slash to the end of filepath
+      strcat(newpath, txtFileName);       //add the filename to end of filepath
 
-    mapperFileIndex++;    //increment mapperFileIndex
+      fprintf(fp, newpath);     //print the filepath of the txt file to the Mapper file
+      fprintf(fp, "\n");
 
-    }
+      mapperFileIndex++;    //increment mapperFileIndex
 
-  }
+    } //else
+
+  } //while
 
   closedir(dr);
-  */
+
   return ;
 }
 
@@ -73,7 +71,7 @@ void phase1(char *folder, int numMappers) // probably change var name
   FILE * fp[numMappers]; //pointers to text files
 
   mkdir("MapperInput", 0700); //0 if successful, ERROR CASE NEEDED
-  chdir("MapperInput"); //moves into MapperInp dir/file
+  chdir("MapperInput"); //moves into MapperInp
 
   for(i = 0; i < numMappers; i++)
   {
@@ -81,6 +79,7 @@ void phase1(char *folder, int numMappers) // probably change var name
       mapperFiles[i] = buffer[i]; //storing text file names
       fp[i] = fopen(mapperFiles[i], "w"); //creating text files
   }
+
   chdir("..");//brings us back, might not need
 
   traverseDir(folder, numMappers, fp); //puts paths into txt files
