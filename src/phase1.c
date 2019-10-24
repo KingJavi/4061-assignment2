@@ -10,7 +10,7 @@
 
 void traverseDir(char *path, int numMappers, FILE *fp[], char *mapperFiles[])
 {
-  
+
 }
 
 void phase1(char *folder, int numMappers) // probably change var name
@@ -30,10 +30,6 @@ void phase1(char *folder, int numMappers) // probably change var name
       fp[i] = fopen(mapperFiles[i], "w"); //creating text files
   }
   chdir("..");//brings us back, might not need
-
-
-
-
 
   return ;
 }
