@@ -8,33 +8,35 @@
 
 */
 
+/* USE TO TEST
+./mapreduce ../Testcases/TestCase2 6
+*/
+
 static int mapperFileIndex;  //this will keep track of which mapperFile we are putting
                              //txt files into
 
-void traverseDir(char *path, int numMappers, FILE *fp[])
+void traverseDir(char *pathName, int numMappers, FILE *fp[], DIR *path)
 {
 
   struct dirent *de; //create dirent struct of our parent directory
 
-  DIR *dr = opendir(path); //pointer to directory, in our case it is a test case
-  if (dr == NULL)         //if we couldnt open it throw error
-  {
-    printf("\nCould not open given directory.\n");
-  }
-
   //shouldnt need, tells us where we at
   /*
+  chdir("../Testcases/TestCase2");
   char dirbuff[PATH_MAX];
   printf("\n%s\nWHATWHAT\n", getcwd(dirbuff, PATH_MAX));
   */
 
+
+  //UNDERSTAND BELLOW--------------------------------------------------------------------------------
+  /*
   while ((de = readdir(dr)) != NULL)    //while there are still more files to traverse
   {
     if (de->d_type == DT_DIR)     //if current file is a directory, call recursively
     {
     char newpath[PATH_MAX];   //create string to put new path name
     snprintf(newpath, sizeof(newpath), "%s/%s", path, de->d_name);  //copy new path over
-    traverseDir(newpath, mapperFiles, fp, m);      //recursive call
+    traverseDir(newpath, numMappers, fp);      //recursive call
     } //if
     else    //current directory is not a folder (ie it is a .txt file) ************
     {
@@ -56,14 +58,13 @@ void traverseDir(char *path, int numMappers, FILE *fp[])
     } //else
 
   } //while
-
-  closedir(dr);
+  */
 
   return ;
 }
 
 
-void phase1(char *folder, int numMappers) // probably change var name
+void phase1(char *pathName, int numMappers) // probably change var name
 {
   int i;
   char *buffer[numMappers][BUFF_SIZE]; //used for sprintf
@@ -82,7 +83,14 @@ void phase1(char *folder, int numMappers) // probably change var name
 
   chdir("..");//brings us back, might not need
 
-  traverseDir(folder, numMappers, fp); //puts paths into txt files
+  DIR *path = opendir(pathName); //pointer to directory, in our case it is a test case
+  if (path == NULL)         //if we couldnt open it throw error
+  {
+    printf("\nCould not open given directory.\n");
+  }
+  
+  traverseDir(pathName, numMappers, fp, path); //puts paths into txt files
+  closedir(path);
 
   return ;
 }

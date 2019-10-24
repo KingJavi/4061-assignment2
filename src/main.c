@@ -9,12 +9,12 @@ int main(int argc, char *argv[])
 		return 0;
 	}
 
-	char *folderName = argv[1]; //root folder to be traversed
+	char *pathName = argv[1]; //root folder to be traversed
 	int numMappers = atoi(argv[2]); //num of mapper processes
 
 	//just make a function call to code in phase1.c
 	//phase1 - Data Partition Phase
-	phase1(folderName, numMappers);
+	phase1(pathName, numMappers);
 
 	//create pipes
 

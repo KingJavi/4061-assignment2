@@ -16,7 +16,7 @@
 
 #define BUFF_SIZE 9 //"Mapper_##"
 
-void phase1(char *folder, int numMappers);
-void traverseDir(char *path, int numMappers, FILE *fp[]);
+void phase1(char *pathName, int numMappers);
+void traverseDir(char *pathName, int numMappers, FILE *fp[], DIR *path);
 
 #endif
