@@ -16,8 +16,8 @@ void traverseDir(char *path, int numMappers, FILE *fp[], char *mapperFiles[])
 void phase1(char *folder, int numMappers) // probably change var name
 {
   int i;
+  char *buffer[numMappers][BUFF_SIZE]; //used for sprintf
   char *mapperFiles[numMappers]; //names
-  char buffer[BUFF_SIZE]; //used for sprintf
   FILE * fp[numMappers]; //pointers to text files
 
   mkdir("MapperInput", 0700); //0 if successful, ERROR CASE NEEDED
@@ -30,6 +30,8 @@ void phase1(char *folder, int numMappers) // probably change var name
       fp[i] = fopen(mapperFiles[i], "w"); //creating text files
   }
   chdir("..");//brings us back, might not need
+
+  traverseDir(folder, numMappers, fp, )
 
   return ;
 }

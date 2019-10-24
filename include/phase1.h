@@ -21,7 +21,7 @@ void traverseDir(char *path, int numMappers, FILE *fp[], char *mapperFiles[]);
 
 #endif
 
-/*-----------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------------------------------
 static int mapperFileIndex;  //this will keep track of which mapperFile we are putting
                              //txt files into
 
@@ -110,4 +110,3 @@ void phase1(char* path, int m)
   //chdir("..");  //go back out to parent directory if we have to
 
 }
--------------------------------------------------------------------------------------*/
