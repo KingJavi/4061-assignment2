@@ -7,7 +7,7 @@
 	4) 	Write the list to "ReducerResult.txt" in the current folder
 */
 
-void phase3(int numMappers, int pipes[numMappers])
+void phase3(int numMappers)
 {
   return ;
 }

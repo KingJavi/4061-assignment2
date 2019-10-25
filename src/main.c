@@ -20,9 +20,10 @@ int main(int argc, char *argv[])
 	FILE * fpReducer = fopen("ReducerResult.txt", "w");
 	FILE * fpFinal = fopen("FinalResult.txt", "w");
 	int i;
+	int numletters[26];
 
-	fprintf(fpReducer, "bang");
-	fprintf(fpFinal, "bang");
+
+	char *mapperFiles[numMappers]; //names
 
 	//phase1 - Data Partition Phase
 	if(phase1(pathName, numMappers, fp) == 0)
@@ -31,28 +32,14 @@ int main(int argc, char *argv[])
 		return 0;
 	}
 
+
 	//create pipes
 	for(i = 0; i < numMappers; i++)
 	{
 		pipe(pipes[i]);
 	}
 
-	phase2(numMappers, pipes, fp);
-
-
-	printf("BANGER\n");
-	    	for(int i=0;i<32;i++) // loop will run n times (n=5)
-	    	{
-	        	if(fork() == 0)
-	        	{
-			printf("%d\n", i);
-	          	exit(0); //kill sons
-	        	} 
-	    	}
-	    	for(int i=0;i<32;i++) // loop will run n times (n=5)
-	    		wait(NULL);
-
-		printf("BANGER\n"); //
+	phase2(numMappers, numletters); //names);
 
 
 /*
@@ -63,7 +50,6 @@ int main(int argc, char *argv[])
 */
 	//phase4
 	//wait for all processes to reach this point
-	//WE ALREADY WAITED
 
 	//just make a function call to code in phase4.c
 	//master process reports the final output

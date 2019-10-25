@@ -59,7 +59,7 @@ int phase1(char *pathName, int numMappers, FILE *fp[]) // probably change var na
 {
   int i;
   char *buffer[numMappers][BUFF_SIZE]; //used for sprintf
-  char *mapperFiles[numMappers]; //names, MIGHT NOT NEED ----DELETE MAYBE
+  char *mapperFiles[numMappers]; //names
 
   mkdir("MapperInput", 0700); //0 if successful, ERROR CASE NEEDED
   chdir("MapperInput"); //moves into MapperInp
@@ -74,6 +74,11 @@ int phase1(char *pathName, int numMappers, FILE *fp[]) // probably change var na
   chdir("..");//brings us back, might not need
 
   traverseDir(pathName, numMappers, fp); //puts paths into txt files
+
+  for(i = 0; i < numMappers; i++)
+    fclose(fp[i]);
+
+
 
   return numtxtFiles;
 }

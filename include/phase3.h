@@ -14,6 +14,6 @@
 #include <string.h>
 #include <stdio.h> //SHOULD NOT NEED -----------------------------
 
-void phase3(int numMappers, int pipes[numMappers]);
+void phase3(int numMappers);
 
 #endif

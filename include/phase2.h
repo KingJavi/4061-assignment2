@@ -13,6 +13,11 @@
 #include <string.h>
 #include <stdio.h> //SHOULD NOT NEED -----------------------------
 
-void phase2(int numMappers, int pipes[numMappers][2], FILE *fp[]);
+void phase2(int numMappers,  int * numLetters);
+
+void countLetters(char *filename, int * numLetters);
+
+void readMappers(char *filename, int * numLetters);
+
 
 #endif
