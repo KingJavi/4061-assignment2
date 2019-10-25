@@ -15,10 +15,9 @@ void phase2(int numMappers, int pipes[numMappers][2], FILE *fp[])
 
   for(i = 0; i < numMappers; i++)
   {
-    for(i = 0; i < numMappers; i++)
+    for(j = 0; j < numMappers; j++)
     {
-      //while(fp[i] != EOF);
-      //fread(buffer, 33, fp[i]);
+      pipes[i][0];
     }
   }
 

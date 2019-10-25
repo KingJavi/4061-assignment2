@@ -39,6 +39,22 @@ int main(int argc, char *argv[])
 
 	phase2(numMappers, pipes, fp);
 
+
+	printf("BANGER\n");
+	    	for(int i=0;i<32;i++) // loop will run n times (n=5)
+	    	{
+	        	if(fork() == 0)
+	        	{
+			printf("%d\n", i);
+	          	exit(0); //kill sons
+	        	} 
+	    	}
+	    	for(int i=0;i<32;i++) // loop will run n times (n=5)
+	    		wait(NULL);
+
+		printf("BANGER\n"); //
+
+
 /*
 	//just make a function call to code in phase3.c
 	//phase3 - Reduce Function
