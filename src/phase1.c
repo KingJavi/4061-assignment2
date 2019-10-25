@@ -55,12 +55,11 @@ void traverseDir(char *pathName, int numMappers, FILE *fp[])
 }
 
 
-int phase1(char *pathName, int numMappers) // probably change var name
+int phase1(char *pathName, int numMappers, FILE *fp[]) // probably change var name
 {
   int i;
   char *buffer[numMappers][BUFF_SIZE]; //used for sprintf
   char *mapperFiles[numMappers]; //names, MIGHT NOT NEED ----DELETE MAYBE
-  FILE * fp[numMappers]; //pointers to text files
 
   mkdir("MapperInput", 0700); //0 if successful, ERROR CASE NEEDED
   chdir("MapperInput"); //moves into MapperInp

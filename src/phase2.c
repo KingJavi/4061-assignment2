@@ -7,3 +7,13 @@
 */
 
 //atom://teletype/portal/74ede11a-d4ea-4e84-9911-5debd59645b8
+
+void countLetters(FILE *fp)
+{
+    DIR *filepath = opendir(fp);
+}
+
+int phase2(int numMappers)
+{
+
+}
