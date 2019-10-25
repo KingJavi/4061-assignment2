@@ -6,3 +6,8 @@
 	3) 	Combine the lists to create a single list
 	4) 	Write the list to "ReducerResult.txt" in the current folder
 */
+
+void phase3(int numMappers, int pipes[numMappers])
+{
+  return ;
+}

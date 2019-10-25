@@ -66,7 +66,7 @@ int phase1(char *pathName, int numMappers, FILE *fp[]) // probably change var na
 
   for(i = 0; i < numMappers; i++)
   {
-      sprintf(buffer[i],"Mapper_%d", i);
+      sprintf(buffer[i],"Mapper_%d.txt", i);
       mapperFiles[i] = buffer[i]; //storing text file names
       fp[i] = fopen(mapperFiles[i], "w"); //creating text files
   }

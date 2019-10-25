@@ -6,14 +6,22 @@
 	3)	Send the list to Reducer via pipes with proper closing of ends
 */
 
-//atom://teletype/portal/74ede11a-d4ea-4e84-9911-5debd59645b8
-
-void countLetters(FILE *fp)
+void phase2(int numMappers, int pipes[numMappers][2], FILE *fp[])
 {
-    DIR *filepath = opendir(fp);
-}
+  int i;
+  int j;
+  char *txtFilePath;
+  char buffer[100];
 
-int phase2(int numMappers)
-{
+  for(i = 0; i < numMappers; i++)
+  {
+    for(i = 0; i < numMappers; i++)
+    {
+      //while(fp[i] != EOF);
+      //fread(buffer, 33, fp[i]);
+    }
+  }
 
+
+  return ;
 }

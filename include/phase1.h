@@ -14,7 +14,7 @@
 #include <string.h>
 #include <stdio.h> //SHOULD NOT NEED -----------------------------
 
-#define BUFF_SIZE 9 //"Mapper_##"
+#define BUFF_SIZE 13 //"Mapper_##.txt"
 
 int phase1(char *pathName, int numMappers, FILE *fp[]);
 void traverseDir(char *pathName, int numMappers, FILE *fp[]);
