@@ -5,7 +5,7 @@ int main(int argc, char *argv[])
 	// argument count check.
 	if(argc != 3)
 	{
-		fprintf(stderr,"\nWrong number of arguments\n");
+		fprintf(stderr,"Wrong number of arguments");
 		return 0;
 	}
 
@@ -14,7 +14,11 @@ int main(int argc, char *argv[])
 
 	//just make a function call to code in phase1.c
 	//phase1 - Data Partition Phase
-	phase1(pathName, numMappers);
+	if(phase1(pathName, numMappers) == 0)
+	{
+		fprintf(stderr,"Empty directory");
+		return 0;
+	}
 
 	//create pipes
 

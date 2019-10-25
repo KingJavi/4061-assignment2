@@ -8,65 +8,54 @@
 
 */
 
-//atom://teletype/portal/74ede11a-d4ea-4e84-9911-5debd59645b8
+static int mapperFileIndex = 0;  //this will keep track of which mapperFile we are putting txt files into
+static int numtxtFiles = 0;
 
-/* USE TO TEST
-./mapreduce ../Testcases/TestCase2 6
-*/
-
-static int mapperFileIndex;  //this will keep track of which mapperFile we are putting
-                             //txt files into
-
-void traverseDir(char *pathName, int numMappers, FILE *fp[], DIR *path)
+void traverseDir(char *pathName, int numMappers, FILE *fp[])
 {
-
-  struct dirent *de; //create dirent struct of our parent directory
-
-  //shouldnt need, tells us where we at
-  /*
-  chdir("../Testcases/TestCase2");
-  char dirbuff[PATH_MAX];
-  printf("\n%s\nWHATWHAT\n", getcwd(dirbuff, PATH_MAX));
-  */
-
-
-  //UNDERSTAND BELLOW--------------------------------------------------------------------------------
-  /*
-  while ((de = readdir(dr)) != NULL)    //while there are still more files to traverse
+  DIR *path = opendir(pathName); //pointer to directory, in our case it is a test case
+  if (path == NULL)              //if we couldnt open it throw error
   {
-    if (de->d_type == DT_DIR)     //if current file is a directory, call recursively
-    {
-    char newpath[PATH_MAX];   //create string to put new path name
-    snprintf(newpath, sizeof(newpath), "%s/%s", path, de->d_name);  //copy new path over
-    traverseDir(newpath, numMappers, fp);      //recursive call
-    } //if
-    else    //current directory is not a folder (ie it is a .txt file) ************
-    {
+    printf("\nCould not open given directory.\n");
+  }
 
+  struct dirent *de; //create dirent struct of dir
+
+  while ((de = readdir(path)) != NULL)    //while there are still more files to traverse
+  {
+
+    if (strcmp(de->d_name, ".") == 0 || strcmp(de->d_name, "..") == 0) //skip both cases
+      continue;
+
+    if (de->d_type == DT_DIR)     //if current file is a directory, need to call recursively
+    {
       char newpath[PATH_MAX];   //create string to put new path name
-      snprintf(newpath, sizeof(newpath), "%s/%s", path, de->d_name);  //copy new path over
+      snprintf(newpath, sizeof(newpath), "%s/%s", pathName, de->d_name);  //copy new path over
+      traverseDir(newpath, numMappers, fp);      //recursive call
+    }
+    else //current directory is not a folder (ie it is a .txt file) ************
+    {
+      char newpath[PATH_MAX];   //create string to put new path name
+      snprintf(newpath, sizeof(newpath), "%s/%s", pathName, de->d_name);  //copy new path over
 
-      char txtFileName[] = "";            //string that wil hold current txt file name
-      strcpy(txtFileName, de->d_name);    //copy that name to the string
+      char txtFileName[] = ""; //string that wil hold current txt file name
 
-      strcat(newpath, "/");               //add a slash to the end of filepath
-      strcat(newpath, txtFileName);       //add the filename to end of filepath
+      fprintf(fp[mapperFileIndex%numMappers], newpath);     //print the filepath of the txt file to the Mapper file
+      fprintf(fp[mapperFileIndex%numMappers], "\n");
 
-      fprintf(fp, newpath);     //print the filepath of the txt file to the Mapper file
-      fprintf(fp, "\n");
-
-      mapperFileIndex++;    //increment mapperFileIndex
-
+      mapperFileIndex++; //increment mapperFileIndex
+      numtxtFiles++;
     } //else
 
   } //while
-  */
+
+  close(path);
 
   return ;
 }
 
 
-void phase1(char *pathName, int numMappers) // probably change var name
+int phase1(char *pathName, int numMappers) // probably change var name
 {
   int i;
   char *buffer[numMappers][BUFF_SIZE]; //used for sprintf
@@ -85,14 +74,7 @@ void phase1(char *pathName, int numMappers) // probably change var name
 
   chdir("..");//brings us back, might not need
 
-  DIR *path = opendir(pathName); //pointer to directory, in our case it is a test case
-  if (path == NULL)         //if we couldnt open it throw error
-  {
-    printf("\nCould not open given directory.\n");
-  }
+  traverseDir(pathName, numMappers, fp); //puts paths into txt files
 
-  traverseDir(pathName, numMappers, fp, path); //puts paths into txt files
-  closedir(path);
-
-  return ;
+  return numtxtFiles;
 }
