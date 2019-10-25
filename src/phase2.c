@@ -10,8 +10,12 @@ void phase2(int numMappers, int pipes[numMappers][2], FILE *fp[])
 {
   int i;
   int j;
+  char 
   char *txtFilePath;
   char buffer[100];
+  char letters[26];
+  int numletters[26];
+
 
   for(i = 0; i < numMappers; i++)
   {
