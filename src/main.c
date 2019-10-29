@@ -15,13 +15,23 @@ int main(int argc, char *argv[])
 
 	char *pathName = argv[1]; //root folder to be traversed
 	int numMappers = atoi(argv[2]); //num of mapper processes
+
+	if(numMappers > 32)
+	{
+		fprintf(stderr,"Too many mappers, less 32 or less required\n");
+		return 0;
+	}
+
 	FILE * fp[numMappers]; //pointers to text files
 	int pipes[numMappers][2]; //for pipes
 	FILE * fpReducer = fopen("ReducerResult.txt", "w");
 	FILE * fpFinal = fopen("FinalResult.txt", "w");
 	int i;
-	int numletters[26];
-
+	char c;
+	int numLetters[26];
+	char letters[26];
+	for(c = 'A', i = 0; i < 26; c++, i++)
+		letters[i] = c;
 
 	char *mapperFiles[numMappers]; //names
 
@@ -39,9 +49,24 @@ int main(int argc, char *argv[])
 		pipe(pipes[i]);
 	}
 
-	phase2(numMappers, numletters); //names);
+	phase2(numMappers, numLetters); //names);
 
+	char buffer[numMappers][1000];
+	for(i = 0; i < numMappers; i++)
+	{
+		sprintf(buffer[i],"MapperInput/Mapper_%d.txt", i);
+		countLetters(buffer[i], numLetters);
+	}
 
+	for(i = 0; i < 26; i++)
+	{
+		fprintf(fpFinal, "%c %d\n", letters[i], numLetters[i]);
+		fprintf(fpReducer, "%c %d\n", letters[i], numLetters[i]);
+		printf("%c %d\n", letters[i], numLetters[i]);
+	}
+
+	fclose(fpFinal);
+	fclose(fpReducer);
 /*
 	//just make a function call to code in phase3.c
 	//phase3 - Reduce Function

@@ -4,14 +4,24 @@
 * x500: magan033, ruizx070
 */
 
-The purpose of our program is to
+The purpose of our program is to attain a large number of text files, divide them evenly
+between different processes and then merge the results together in the end. The results
+being, the amount of times each letter appears in all the text files.
 
-To compile the program you first
+To compile the program you first run make, which is already done for you. You then input
+"./mapreduce directory number". (You must be in the /src directory for this to work)
+For directory you can pick any directory to be reduced. Number is the number of mapper
+files to be created.
 
-Our program first checks
+Our program first checks to see that the input is valid. Then it goes through and creates
+the number of mapper files requested in a folder called mapperInput. Inside these files
+goes the paths to each individual text files. All the text files are divided evenly.
+There after it goes to each one of these text files and counts the number of times
+each letter from the alphabet appears. It then outputs this information. The information
+is also stored in ReducerReult.txt and FinalResult.txt.
 
 There are no assumptions outside of the given document.
 
-Marcos and I worked on it together the whole time.
+We both worked on it together the whole time.
 
 We have not attempted the extra credit.

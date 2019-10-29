@@ -9,30 +9,6 @@
 void readMapper(char *filename, int * numLetters)
 {
 
-  char *line_buf = NULL;
-  size_t line_buf_size = 0;
-  ssize_t line_size;
-  FILE *fp = fopen(filename, "r");
-
-  chdir("MapperInput");
-  line_size = getline(&line_buf, &line_buf_size, fp);
-  countLetters(line_buf, numLetters);
-  chdir("..");
-
-
-  while (line_size > 0)
-  {
-    chdir("MapperInput");
-    line_size = getline(&line_buf, &line_buf_size, fp);
-    countLetters(line_buf, numLetters);
-    //printf("%s", line_buf);
-    chdir("..");
-
-  }
-
-  free(line_buf);
-  fclose(fp);
-
   return;
 }
 
@@ -103,12 +79,14 @@ void phase2(int numMappers,  int * numLetters)
 {
   int i;
 
-  char *buffer[numMappers][1000];
+  char buffer[numMappers][1000];
 
   for(i = 0 ; i < numMappers ; i++)
   {
-    sprintf(buffer[i],"Mapper_%d.txt", i);
-    readMapper(buffer[i], numLetters);
+    //sprintf(buffer[i],"MapperInput/Mapper_%d.txt", i);
+    //printf("%s", buffer[i]);
+    //printf("%d", i);
+    //readMapper(buffer[i], numLetters);
   }
 
   return ;
